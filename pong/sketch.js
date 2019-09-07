@@ -3,7 +3,7 @@ let xBolinha = 300;
 let yBolinha = 200;
 let diametro = 22;
 let raio = diametro/2;
-let corBolinha = [0, 0, 0];
+let corBolinha = [0,0,0];
 let velocidadeX = 7;
 let velocidadeY = 7;
 
@@ -29,8 +29,8 @@ let ponto;
 let raquetada;
 
 function preload(){
-  raquedada = loadSound('raquetada.mp3');
-  ponto = loadSound('ponto.mp3');
+raquetada = loadSound('raquetada.mp3');
+ponto = loadSound("ponto.mp3");
 }
 
 //Configuração Inicial
@@ -56,7 +56,7 @@ mostraVencedor();
 
 function mostraVencedor(){
 if(pontosMeus >= 10){
-fill(0,0,0);//preto
+fill(255,130,150);//
 rect(300,0,300,400);//Metade direita da tela
 textAlign(CENTER);
 fill(0);//Texto preto
@@ -89,7 +89,7 @@ mostraPlacar();
 function mostraPlacar(){
 textSize(30);
 strokeWeight(4);//Largura da borda
-stroke(0, 0, 0);//cor da borda = Roxo
+stroke(93, 36, 173);//cor da borda = Roxo
 
 fill(0,200,0);//Retângulo verde
 rect(427,12,60,35,10);//retângulo Meus pontos
@@ -104,7 +104,7 @@ text(pontosOponente, 150, 40);
 function marcaPonto(){
 if(xBolinha < 10){
 //Incrementar os pontos
-pontosMeus += 1;//pontosMeus = pontosMeus + 1
+pontosMeus += 1; //pontosMeus = pontosMeus + 1
 ponto.play();
 } 
 if(xBolinha > 590){
@@ -120,12 +120,13 @@ ponto.play();
 function verificaColisaoRaquete(){
 
 if(xBolinha + raio > xMinhaRaquete && 
-yBolinha - raio < yMinhaRaquete + alturaRaquete &&
+yBolinha - raio < yMinhaRaquete + alturaRaquete && 
 yBolinha + raio > yMinhaRaquete){
 
 if(!(xBolinha < 300 && velocidadeX > 0 || 
 xBolinha > 300 && velocidadeX < 0)){
-velocidadeX *= -1; 
+velocidadeX *= -1;
+raquetada.play();
 }
 
 }//Minha Raquete
