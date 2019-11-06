@@ -1,6 +1,6 @@
-// IN ORDER TO PLAY - CLICK THE ON THE SCREEN
-// MOVE THE PADDLE WITH THE ARROW KEYS
-// SHOOT USING SPACEBAR
+// PARA PEDIR JOGAR - CLIQUE NA TELA
+// MOVE A TABOA COM AS CHAVES DE SETA
+// COMEÇAR USANDO A BARRA DE ESPAÇO
 
 let moveMent = 280
 let rightPress = false
@@ -12,7 +12,8 @@ let score = 0
 let lives = 3
 let livesRestart = false
 const bricks = []
-const brickColors = ["#CCAAFF", "#CCBBFF", "#CCCCFF", "#CCDDFF", "#CCEEFF", "#CCFFFF", "#CCFFEE", "#CCFFDD"];
+const brickColors = ["#3ec27c","#3ec284","#3aba91","#3abaa0","#3abaad","#3aa9ba","#3a80ba","#3a60ba"];
+
 
 const circle = {
   x: moveMent + 50,
@@ -25,9 +26,10 @@ function setup() {
   createBricks()
 }
 
+//taboa config
 function paddle() {
-  stroke('purple')
-  fill('#FF6961')
+  stroke('white')
+  fill('#40cae6')
   rect(moveMent, 385, 100, 15, 20)
   if (rightPress && moveMent < 500) {
     moveMent += 10
@@ -36,6 +38,8 @@ function paddle() {
     moveMent += -10
   }
 }
+
+//bola config
 
 function ball() {
   noStroke()
@@ -74,6 +78,7 @@ function ball() {
   circle.y += dy
 }
 
+//criação blocos
 function createBricks() {
   const rows = 8
   const cols = 10
@@ -92,6 +97,7 @@ function createBricks() {
   }
 }
 
+//movimentação taboa e desenho blocos
 function drawBricks() {
   bricks.forEach(brick => {
     fill(brick.color)
@@ -123,6 +129,7 @@ function keyPressed(value) {
   }
 }
 
+
 function keyReleased(value) {
   if (value.key === 'ArrowRight') {
     rightPress = false
@@ -132,21 +139,23 @@ function keyReleased(value) {
   }
 }
 
+//texto recomeçar
 function restartGame() {
-  fill('#FFEEEE')
+  fill('#40cae6')
   textAlign(CENTER);
   noStroke()
   textStyle(BOLD);
   textFont('Arial');
   textSize(38)
-  text('GAME OVER', 300, 170)
+  text('Você Perdeu', 300, 170)
   textFont('Arial');
   textSize(28);
   text('Final score: ' + score, 300, 200);
   textSize(18);
-  text('Press SpaceBar to restart game', 300, 225);
+  text('Presione o espaço para começar', 300, 225);
 }
 
+//texto de morte
 function lostLifeText() {
   fill('#FFEEEE')
   textAlign(CENTER);
@@ -154,14 +163,15 @@ function lostLifeText() {
   textStyle(BOLD);
   textFont('Arial');
   textSize(36)
-  text('Life Lost', 300, 170)
+  text('Vida perdida', 300, 170)
   textFont('Arial');
   textSize(24);
-  text('You now have ' + lives + ' lives remaining', 300, 200);
+  text('Agora você tem ' + lives + ' vidas restantes', 300, 200);
   textSize(18);
-  text('Press SpaceBar to restart', 300, 225);
+  text('Precione espaço para recomeçar', 300, 225);
 }
 
+//Texto de vida
 function scoreText() {
   fill('#FFEEEE')
   textStyle(BOLD);
@@ -169,7 +179,7 @@ function scoreText() {
   noStroke()
   textFont('Arial');
   textSize(18);
-  text('Score: ' + score, 555, 20);
+  text('Pontos: ' + score, 520, 20);
 }
 
 function livesText() {
@@ -178,9 +188,10 @@ function livesText() {
   noStroke()
   textFont('Arial');
   textSize(18);
-  text('Lives: ' + lives, 40, 20);
+  text('Vidas: ' + lives, 60, 20);
 }
 
+//colisão bola e bloco
 function checkCollisionBottom(ball, brick) {
 	if (ball.y - 20 < brick.y && ball.x > brick.x && ball.x <= brick.x + 58) {
   	return true
@@ -188,7 +199,37 @@ function checkCollisionBottom(ball, brick) {
 }
 
 function draw() {
-  background('#779ecb');
+  if(frameCount < 500){
+  telaInicial();
+  }else{//passou os 8 seg iniciais
+  jogo();
+  }
+  }//FIM JOGO
+
+
+
+function telaInicial(){
+
+  textStyle(BOLD);
+  fill("#797a8f");//preenchimento
+  rect(0, 0, 500, 400 );
+  textFont('Helvetica');
+  fill("")
+  textAlign(CENTER);
+  textSize(18)
+  text("SENAI - Serviço Nacional de Aprendizagem Industrial", 240, 50);
+  textSize(20)
+  text("Ucr:Linguagem de programação de Web", 250,330)
+  textSize(20)
+  text("Professor: Tarcísio Nunes ", 250,360);
+  textSize(20)
+  text("Alunos: Hostógio, José e Pedro Tomaz", 250,       390);
+    
+  }
+
+
+function jogo(){
+   background(imagemDoFundo);
   if (game && !livesRestart) ball()
   if (livesRestart && game) lostLifeText()
   if (!game && livesRestart) restartGame()
@@ -196,6 +237,8 @@ function draw() {
     scoreText()
     livesText()
     drawBricks()
-    paddle()
-  }
+    paddle()    
 }
+}
+
+
