@@ -229,7 +229,7 @@ function telaInicial(){
 
 
 function jogo(){
-   background(imagemDoFundo);
+   background("#000000");
   if (game && !livesRestart) ball()
   if (livesRestart && game) lostLifeText()
   if (!game && livesRestart) restartGame()
